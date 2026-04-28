@@ -106,6 +106,13 @@
         <div class="flex flex-wrap gap-2 pt-1">
           <button
             type="button"
+            (click)="toggleComplete(task)"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+          >
+            {{ task.complete ? 'Mark Incomplete' : 'Mark Complete' }}
+          </button>
+          <button
+            type="button"
             (click)="startEdit(task)"
             class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500"
           >

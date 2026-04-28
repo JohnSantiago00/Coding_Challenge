@@ -51,6 +51,15 @@ export class TaskDisplayComponent {
     this.cancelEdit()
   }
 
+  protected toggleComplete(task: TaskAndId): void {
+    this.taskService.updateTask(task._id, {
+      name: task.name,
+      due: task.due,
+      description: task.description,
+      complete: !task.complete,
+    })
+  }
+
   protected deleteTask(task: TaskAndId): void {
     const confirmed = window.confirm(`Delete "${task.name}"?`)
 
