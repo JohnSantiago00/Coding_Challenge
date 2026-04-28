@@ -1,22 +1,63 @@
-<!-- You do not need to change this file -->
-<h2>Task Create Component</h2>
-<form (ngSubmit)="onSubmit()" #taskForm="ngForm">
-      <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" [(ngModel)]="task.name" required>
-      </div>
-      <div>
-        <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" name="dueDate" [(ngModel)]="task.due" required>
-      </div>
-      <div>
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" [(ngModel)]="task.description" required>
-      </div>
-      <div>
-        <label for="complete">Complete:</label>
-        <input type="checkbox" id="complete" name="complete" [(ngModel)]="task.complete">
-      </div>
-      <button type="submit" [disabled]="!taskForm.form.valid">Register</button>
-</form>
-<br/>
+<section class="space-y-3">
+  <div>
+    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">Create</h2>
+    <p class="mt-1 text-xs text-slate-600">Add a task.</p>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="space-y-3">
+    <div class="space-y-1.5">
+      <label for="name" class="text-sm font-medium text-slate-700">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="task.name"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
+      >
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="dueDate" class="text-sm font-medium text-slate-700">Due Date</label>
+      <input
+        type="date"
+        id="dueDate"
+        name="dueDate"
+        [(ngModel)]="task.due"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
+      >
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="description" class="text-sm font-medium text-slate-700">Description</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        [(ngModel)]="task.description"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
+      >
+    </div>
+
+    <label for="complete" class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700">
+      <input
+        type="checkbox"
+        id="complete"
+        name="complete"
+        [(ngModel)]="task.complete"
+        class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-400"
+      >
+      <span>Mark task as complete</span>
+    </label>
+
+    <button
+      type="submit"
+      [disabled]="!taskForm.form.valid"
+      class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:bg-slate-300"
+    >
+      Create
+    </button>
+  </form>
+</section>

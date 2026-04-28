@@ -1,24 +1,74 @@
-<h2>Task Update Component</h2>
-<form (ngSubmit)="onSubmit()">
+<section class="space-y-3">
   <div>
-    <label for="taskId">Task Id to Update:</label>
-    <input type="text" id="taskId" name="taskId" [(ngModel)]="taskId" required />
+    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">Update</h2>
+    <p class="mt-1 text-xs text-slate-600">Paste an id and edit values.</p>
   </div>
-  <div>
-    <label for="updateName">Name:</label>
-    <input type="text" id="updateName" name="name" [(ngModel)]="task.name" required />
-  </div>
-  <div>
-    <label for="updateDueDate">Due Date:</label>
-    <input type="date" id="updateDueDate" name="dueDate" [(ngModel)]="task.due" required />
-  </div>
-  <div>
-    <label for="updateDescription">Description:</label>
-    <input type="text" id="updateDescription" name="description" [(ngModel)]="task.description" required />
-  </div>
-  <div>
-    <label for="updateComplete">Complete:</label>
-    <input type="checkbox" id="updateComplete" name="complete" [(ngModel)]="task.complete" />
-  </div>
-  <button type="submit">Submit</button>
-</form>
+
+  <form (ngSubmit)="onSubmit()" class="space-y-3">
+    <div class="space-y-1.5">
+      <label for="taskId" class="text-sm font-medium text-slate-700">Task Id</label>
+      <input
+        type="text"
+        id="taskId"
+        name="taskId"
+        [(ngModel)]="taskId"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-mono text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+      />
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="updateName" class="text-sm font-medium text-slate-700">Name</label>
+      <input
+        type="text"
+        id="updateName"
+        name="name"
+        [(ngModel)]="task.name"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+      />
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="updateDueDate" class="text-sm font-medium text-slate-700">Due Date</label>
+      <input
+        type="date"
+        id="updateDueDate"
+        name="dueDate"
+        [(ngModel)]="task.due"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+      />
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="updateDescription" class="text-sm font-medium text-slate-700">Description</label>
+      <input
+        type="text"
+        id="updateDescription"
+        name="description"
+        [(ngModel)]="task.description"
+        required
+        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+      />
+    </div>
+
+    <label for="updateComplete" class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700">
+      <input
+        type="checkbox"
+        id="updateComplete"
+        name="complete"
+        [(ngModel)]="task.complete"
+        class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-400"
+      />
+      <span>Mark task as complete</span>
+    </label>
+
+    <button
+      type="submit"
+      class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500"
+    >
+      Update
+    </button>
+  </form>
+</section>
