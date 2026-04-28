@@ -1,2 +1,24 @@
 <h2>Task Update Component</h2>
-<p>Create your task update form below</p>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="taskId">Task Id to Update:</label>
+    <input type="text" id="taskId" name="taskId" [(ngModel)]="taskId" required />
+  </div>
+  <div>
+    <label for="updateName">Name:</label>
+    <input type="text" id="updateName" name="name" [(ngModel)]="task.name" required />
+  </div>
+  <div>
+    <label for="updateDueDate">Due Date:</label>
+    <input type="date" id="updateDueDate" name="dueDate" [(ngModel)]="task.due" required />
+  </div>
+  <div>
+    <label for="updateDescription">Description:</label>
+    <input type="text" id="updateDescription" name="description" [(ngModel)]="task.description" required />
+  </div>
+  <div>
+    <label for="updateComplete">Complete:</label>
+    <input type="checkbox" id="updateComplete" name="complete" [(ngModel)]="task.complete" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
