@@ -1,7 +1,7 @@
 // No need to change this file
 export type Task = {
   name: string,
-  due: Date,
+  due: string,
   complete: boolean,
   description: string,
 }

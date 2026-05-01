@@ -12,9 +12,13 @@
         id="name"
         name="name"
         [(ngModel)]="task.name"
+        #nameModel="ngModel"
         required
         class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
       >
+      @if (nameModel.invalid && (nameModel.touched || taskForm.submitted)) {
+      <p class="text-xs font-medium text-red-600">Name is required.</p>
+      }
     </div>
 
     <div class="space-y-1.5">
@@ -24,9 +28,13 @@
         id="dueDate"
         name="dueDate"
         [(ngModel)]="task.due"
+        #dueDateModel="ngModel"
         required
         class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
       >
+      @if (dueDateModel.invalid && (dueDateModel.touched || taskForm.submitted)) {
+      <p class="text-xs font-medium text-red-600">Due date is required.</p>
+      }
     </div>
 
     <div class="space-y-1.5">
@@ -36,9 +44,13 @@
         id="description"
         name="description"
         [(ngModel)]="task.description"
+        #descriptionModel="ngModel"
         required
         class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
       >
+      @if (descriptionModel.invalid && (descriptionModel.touched || taskForm.submitted)) {
+      <p class="text-xs font-medium text-red-600">Description is required.</p>
+      }
     </div>
 
     <label for="complete" class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700">

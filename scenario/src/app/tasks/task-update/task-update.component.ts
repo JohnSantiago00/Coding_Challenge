@@ -13,7 +13,7 @@ export class TaskUpdateComponent {
   protected taskId: string = ''
   protected task: Task = {
     name: '',
-    due: new Date(),
+    due: '',
     description: '',
     complete: false
   };
@@ -25,7 +25,7 @@ export class TaskUpdateComponent {
     this.taskId = ''
     this.task = {
       name: '',
-      due: new Date(),
+      due: '',
       description: '',
       complete: false
     };

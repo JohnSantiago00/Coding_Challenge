@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class TaskCreateComponent {
   protected task: Task = {
     name: '',
-    due: new Date(),
+    due: '',
     description: '',
     complete: false
   };
@@ -24,7 +24,7 @@ export class TaskCreateComponent {
     this.taskService.createTask(this.task)
     this.task = {
       name: '',
-      due: new Date(),
+      due: '',
       description: '',
       complete: false
     };
