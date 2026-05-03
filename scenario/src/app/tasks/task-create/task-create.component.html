@@ -1,9 +1,4 @@
 <section class="space-y-3">
-  <div>
-    <h2 class="section-title">Create</h2>
-    <p class="section-helper">Add a task.</p>
-  </div>
-
   <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="space-y-3">
     <div class="form-field">
       <label for="name" class="form-label">Name</label>
@@ -32,24 +27,22 @@
         required
         class="form-input"
       />
-      @if (
-        dueDateModel.invalid && (dueDateModel.touched || taskForm.submitted)
-      ) {
+      @if (dueDateModel.invalid && (dueDateModel.touched || taskForm.submitted)) {
         <p class="form-error">Due date is required.</p>
       }
     </div>
 
     <div class="form-field">
       <label for="description" class="form-label">Description</label>
-      <input
-        type="text"
+      <textarea
         id="description"
         name="description"
         [(ngModel)]="task.description"
         #descriptionModel="ngModel"
         required
-        class="form-input"
-      />
+        rows="3"
+        class="form-textarea"
+      ></textarea>
       @if (
         descriptionModel.invalid &&
         (descriptionModel.touched || taskForm.submitted)

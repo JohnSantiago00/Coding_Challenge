@@ -1,27 +1,37 @@
 <main class="min-h-screen bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
   @if (toast$ | async; as toastMessage) {
-  <div class="fixed left-1/2 top-4 z-50 w-full max-w-sm -translate-x-1/2 px-4">
-    <div class="flex w-full items-start justify-between gap-3 rounded-2xl border border-emerald-200 bg-white px-4 py-3 shadow-lg">
-      <p class="text-sm font-medium text-slate-800">{{ toastMessage }}</p>
-      <button
-        type="button"
-        (click)="clearToast()"
-        class="text-sm font-semibold text-slate-500 transition hover:text-slate-700"
+    <div
+      class="fixed left-1/2 top-4 z-50 w-full max-w-sm -translate-x-1/2 px-4"
+    >
+      <div
+        class="flex w-full items-start justify-between gap-3 rounded-2xl border border-emerald-200 bg-white px-4 py-3 shadow-lg"
       >
-        Dismiss
-      </button>
+        <p class="text-sm font-medium text-slate-800">{{ toastMessage }}</p>
+        <button
+          type="button"
+          (click)="clearToast()"
+          class="text-sm font-semibold text-slate-500 transition hover:text-slate-700"
+        >
+          Dismiss
+        </button>
+      </div>
     </div>
-  </div>
   }
 
   <div class="mx-auto max-w-7xl">
-    <section class="mb-5 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm sm:p-5">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div class="space-y-2">
-          <div>
-            <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">Task Manager</h1>
-            <p class="mt-1.5 max-w-2xl text-sm text-slate-600 sm:text-base">
-              Create, update, and manage your tasks.
+    <section
+      class="mb-5 rounded-2xl border border-slate-200 bg-white/90 p-4 text-center shadow-sm sm:p-5"
+    >
+      <div class="mx-auto flex max-w-3xl justify-center">
+        <div class="w-full space-y-2 text-center">
+          <div class="space-y-1.5">
+            <h1
+              class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl"
+            >
+              Task Manager
+            </h1>
+            <p class="mx-auto max-w-2xl text-sm text-slate-600 sm:text-base">
+              Stay organized and manage your tasks in one place.
             </p>
           </div>
         </div>
