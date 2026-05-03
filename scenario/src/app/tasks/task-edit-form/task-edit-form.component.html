@@ -1,0 +1,82 @@
+<form
+  (ngSubmit)="submitEdit(editTaskForm)"
+  #editTaskForm="ngForm"
+  class="space-y-3"
+>
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+    <h3 class="text-base font-semibold text-slate-900">Editing Task</h3>
+    <span
+      class="inline-flex items-center rounded-full bg-teal-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-teal-700"
+    >
+      Edit mode
+    </span>
+  </div>
+
+  <div class="form-field">
+    <label class="form-label" [attr.for]="'edit-name-' + task._id">Name</label>
+    <input
+      type="text"
+      [attr.id]="'edit-name-' + task._id"
+      name="editName"
+      [(ngModel)]="editedTask.name"
+      #editNameModel="ngModel"
+      required
+      class="form-input-sky"
+    />
+    @if (editNameModel.invalid && editTaskForm.submitted) {
+      <p class="form-error">Name is required.</p>
+    }
+  </div>
+
+  <div class="form-field">
+    <label class="form-label" [attr.for]="'edit-due-' + task._id">Due Date</label>
+    <input
+      type="date"
+      [attr.id]="'edit-due-' + task._id"
+      name="editDueDate"
+      [(ngModel)]="editedTask.due"
+      #editDueDateModel="ngModel"
+      required
+      class="form-input-sky"
+    />
+    @if (editDueDateModel.invalid && editTaskForm.submitted) {
+      <p class="form-error">Due date is required.</p>
+    }
+  </div>
+
+  <div class="form-field">
+    <label class="form-label" [attr.for]="'edit-description-' + task._id">
+      Description
+    </label>
+    <textarea
+      [attr.id]="'edit-description-' + task._id"
+      name="editDescription"
+      [(ngModel)]="editedTask.description"
+      #editDescriptionModel="ngModel"
+      required
+      rows="3"
+      class="form-textarea-sky"
+    ></textarea>
+    @if (editDescriptionModel.invalid && editTaskForm.submitted) {
+      <p class="form-error">Description is required.</p>
+    }
+  </div>
+
+  <label class="checkbox-row" [attr.for]="'edit-complete-' + task._id">
+    <input
+      type="checkbox"
+      [attr.id]="'edit-complete-' + task._id"
+      name="editComplete"
+      [(ngModel)]="editedTask.complete"
+      class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-400"
+    />
+    <span>Mark task as complete</span>
+  </label>
+
+  <div class="flex flex-wrap gap-2">
+    <button type="submit" class="accent-button">Save</button>
+    <button type="button" (click)="cancel.emit()" class="secondary-button">
+      Cancel
+    </button>
+  </div>
+</form>

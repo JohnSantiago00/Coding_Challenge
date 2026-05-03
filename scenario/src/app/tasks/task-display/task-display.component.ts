@@ -3,12 +3,21 @@ import { TaskService } from '../task.service';
 import { Task, TaskAndId } from '../../task-types';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { TaskCardComponent } from '../task-card/task-card.component';
+import { TaskEditFormComponent } from '../task-edit-form/task-edit-form.component';
+import { TaskDeleteModalComponent } from '../task-delete-modal/task-delete-modal.component';
 
 @Component({
   selector: 'app-task-display',
   standalone: true,
-  imports: [AsyncPipe, FormsModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    TaskCardComponent,
+    TaskEditFormComponent,
+    TaskDeleteModalComponent,
+  ],
   templateUrl: './task-display.component.html',
 })
 export class TaskDisplayComponent {
@@ -19,13 +28,6 @@ export class TaskDisplayComponent {
   protected searchTerm: string = '';
   protected statusFilter: 'all' | 'complete' | 'incomplete' = 'all';
   protected sortBy: 'newest' | 'oldest' | 'dueSoonest' | 'dueLatest' | 'completeFirst' | 'incompleteFirst' = 'newest';
-  protected editedTask: Task = {
-    name: '',
-    due: '',
-    description: '',
-    complete: false,
-  };
-
 
   constructor(private taskService: TaskService) {
     this.tasks$ = this.taskService.getTasks()
@@ -34,42 +36,14 @@ export class TaskDisplayComponent {
 
   protected startEdit(task: TaskAndId): void {
     this.editingTaskId = task._id
-    this.editedTask = {
-      name: task.name,
-      due: this.toDateInputValue(task.due),
-      description: task.description,
-      complete: task.complete,
-    }
   }
 
   protected cancelEdit(): void {
     this.editingTaskId = null
-    this.editedTask = {
-      name: '',
-      due: '',
-      description: '',
-      complete: false,
-    }
   }
 
-  protected saveEdit(id: string, editTaskForm: NgForm): void {
-    const trimmedName = this.editedTask.name.trim()
-    const trimmedDescription = this.editedTask.description.trim()
-
-    if (
-      editTaskForm.invalid ||
-      trimmedName.length === 0 ||
-      !this.editedTask.due ||
-      trimmedDescription.length === 0
-    ) {
-      return
-    }
-
-    this.taskService.updateTask(id, {
-      ...this.editedTask,
-      name: trimmedName,
-      description: trimmedDescription,
-    })
+  protected saveEdit(id: string, updatedTask: Task): void {
+    this.taskService.updateTask(id, updatedTask)
     this.cancelEdit()
   }
 
@@ -90,11 +64,7 @@ export class TaskDisplayComponent {
     this.taskPendingDelete = null
   }
 
-  protected confirmDelete(): void {
-    if (!this.taskPendingDelete) return
-
-    const taskId = this.taskPendingDelete._id
-
+  protected confirmDelete(taskId: string): void {
     this.taskService.deleteTask(taskId)
 
     if (this.editingTaskId === taskId) {

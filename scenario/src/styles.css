@@ -7,10 +7,6 @@
     @apply text-sm font-semibold uppercase tracking-wide text-slate-800;
   }
 
-  .section-title-danger {
-    @apply pl-2 text-sm font-semibold uppercase tracking-wide text-rose-700;
-  }
-
   .section-helper {
     @apply mt-1 text-xs text-slate-500;
   }
@@ -53,14 +49,6 @@
     background-position: right 0.875rem center;
     background-repeat: no-repeat;
     background-size: 1rem;
-  }
-
-  .form-input-danger {
-    @apply w-full rounded-xl border border-stone-300/70 bg-white/80 px-3 py-2.5 text-sm text-slate-800 shadow-sm shadow-stone-950/5 outline-none transition focus:border-rose-400 focus:ring-4 focus:ring-rose-100;
-  }
-
-  .form-input-mono {
-    @apply font-mono;
   }
 
   .form-error {
