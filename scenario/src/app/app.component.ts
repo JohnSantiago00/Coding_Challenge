@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { TasksComponent } from './tasks/tasks.component';
 import { AsyncPipe } from '@angular/common';
 import { TaskService } from './tasks/task.service';
 import { Observable } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AsyncPipe, TasksComponent],
+  imports: [AsyncPipe, RouterOutlet],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

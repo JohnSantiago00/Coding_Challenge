@@ -1,0 +1,45 @@
+<section class="mx-auto max-w-md">
+  <div
+    class="rounded-2xl border border-stone-300/60 bg-stone-50/90 p-6 shadow-lg shadow-stone-900/10 sm:p-7"
+  >
+    <div class="text-center">
+      <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Log in</h2>
+      <p class="mt-2 text-sm text-slate-600">
+        Auth will be connected in the next phase. This is the login page shell.
+      </p>
+    </div>
+
+    <form (submit)="handleSubmit($event)" class="mt-6 space-y-4">
+      <div class="form-field">
+        <label for="loginEmail" class="form-label">Email</label>
+        <input
+          id="loginEmail"
+          type="email"
+          autocomplete="email"
+          class="form-input"
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="loginPassword" class="form-label">Password</label>
+        <input
+          id="loginPassword"
+          type="password"
+          autocomplete="current-password"
+          class="form-input"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <button type="submit" class="primary-button w-full">Log in</button>
+    </form>
+
+    <p class="mt-5 text-center text-sm text-slate-600">
+      Need an account?
+      <a routerLink="/signup" class="font-semibold text-teal-700 transition hover:text-teal-600">
+        Sign up
+      </a>
+    </p>
+  </div>
+</section>
