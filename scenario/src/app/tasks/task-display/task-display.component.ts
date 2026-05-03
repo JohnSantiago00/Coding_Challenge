@@ -3,7 +3,7 @@ import { TaskService } from '../task.service';
 import { Task, TaskAndId } from '../../task-types';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-task-display',
@@ -52,8 +52,24 @@ export class TaskDisplayComponent {
     }
   }
 
-  protected saveEdit(id: string): void {
-    this.taskService.updateTask(id, this.editedTask)
+  protected saveEdit(id: string, editTaskForm: NgForm): void {
+    const trimmedName = this.editedTask.name.trim()
+    const trimmedDescription = this.editedTask.description.trim()
+
+    if (
+      editTaskForm.invalid ||
+      trimmedName.length === 0 ||
+      !this.editedTask.due ||
+      trimmedDescription.length === 0
+    ) {
+      return
+    }
+
+    this.taskService.updateTask(id, {
+      ...this.editedTask,
+      name: trimmedName,
+      description: trimmedDescription,
+    })
     this.cancelEdit()
   }
 

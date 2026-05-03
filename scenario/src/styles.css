@@ -4,23 +4,23 @@
 
 @layer components {
   .section-title {
-    @apply text-sm font-semibold uppercase tracking-wide text-slate-900;
+    @apply text-sm font-semibold uppercase tracking-wide text-slate-800;
   }
 
   .section-title-danger {
-    @apply pl-2 text-sm font-semibold uppercase tracking-wide text-red-700;
+    @apply pl-2 text-sm font-semibold uppercase tracking-wide text-rose-700;
   }
 
   .section-helper {
-    @apply mt-1 text-xs text-slate-600;
+    @apply mt-1 text-xs text-slate-500;
   }
 
   .panel-title {
-    @apply text-base font-semibold tracking-tight text-slate-900;
+    @apply text-base font-semibold tracking-tight text-slate-800;
   }
 
   .panel-helper {
-    @apply mt-1 text-sm text-slate-600;
+    @apply mt-1 text-sm text-slate-500;
   }
 
   .form-field {
@@ -28,11 +28,11 @@
   }
 
   .form-label {
-    @apply pl-1.5 text-sm font-medium text-slate-700;
+    @apply pl-1.5 text-sm font-medium text-slate-600;
   }
 
   .form-input {
-    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100;
+    @apply w-full rounded-xl border border-stone-300/70 bg-white/80 px-3 py-2.5 text-slate-800 shadow-sm shadow-stone-950/5 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100;
   }
 
   .form-textarea {
@@ -40,7 +40,7 @@
   }
 
   .form-input-sky {
-    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100;
+    @apply w-full rounded-xl border border-stone-300/70 bg-white/80 px-3 py-2.5 text-slate-800 shadow-sm shadow-stone-950/5 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100;
   }
 
   .form-textarea-sky {
@@ -56,7 +56,7 @@
   }
 
   .form-input-danger {
-    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-red-300 focus:ring-4 focus:ring-red-100;
+    @apply w-full rounded-xl border border-stone-300/70 bg-white/80 px-3 py-2.5 text-sm text-slate-800 shadow-sm shadow-stone-950/5 outline-none transition focus:border-rose-400 focus:ring-4 focus:ring-rose-100;
   }
 
   .form-input-mono {
@@ -64,26 +64,26 @@
   }
 
   .form-error {
-    @apply pl-2 text-xs font-medium text-red-600;
+    @apply pl-2 text-xs font-medium text-rose-600;
   }
 
   .checkbox-row {
-    @apply flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700;
+    @apply flex items-center gap-2.5 rounded-xl border border-stone-300/70 bg-white/75 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm shadow-stone-950/5;
   }
 
   .primary-button {
-    @apply inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:bg-slate-300;
+    @apply inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-teal-950/15 transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:text-stone-100;
   }
 
   .secondary-button {
-    @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100;
+    @apply inline-flex items-center justify-center rounded-xl border border-stone-300/70 bg-white/75 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm shadow-stone-950/5 transition hover:bg-white/95;
   }
 
   .accent-button {
-    @apply inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500;
+    @apply inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-teal-950/15 transition hover:bg-teal-500;
   }
 
   .danger-button {
-    @apply inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-500;
+    @apply inline-flex items-center justify-center rounded-xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-rose-950/15 transition hover:bg-rose-500;
   }
 }

@@ -1,4 +1,3 @@
-// No need to change this file
 export type Task = {
   name: string,
   due: string,

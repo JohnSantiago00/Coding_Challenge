@@ -1,7 +1,7 @@
 <section
-  class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+  class="rounded-2xl border border-stone-300/60 bg-stone-50/90 p-4 shadow-lg shadow-stone-900/10 sm:p-5"
 >
-  <div class="border-b border-slate-200 pb-3">
+  <div class="border-b border-slate-500 pb-3">
     <div class="mx-auto max-w-2xl text-center">
       <h2
         class="text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl"
@@ -14,7 +14,7 @@
   <div class="mt-4">
     @if (error$ | async; as errorMessage) {
       <div
-        class="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+        class="mb-4 rounded-xl border border-rose-200/80 bg-rose-50/90 px-4 py-3 text-sm font-medium text-rose-700"
       >
         {{ errorMessage }}
       </div>
@@ -23,7 +23,7 @@
     @if (tasks$ | async; as tasks) {
       @if (tasks.length === 0) {
         <div
-          class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center"
+          class="rounded-2xl border border-dashed border-stone-300/80 bg-stone-100/70 px-6 py-10 text-center"
         >
           <h3 class="text-lg font-semibold text-slate-900">No tasks yet</h3>
           <p class="mt-2 text-sm text-slate-600">
@@ -33,7 +33,7 @@
       } @else {
         <div class="space-y-4">
           <div
-            class="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 sm:grid-cols-[minmax(0,1fr)_10rem_10rem]"
+            class="grid gap-3 rounded-2xl border border-stone-300/70 bg-stone-100/65 p-3 sm:grid-cols-[minmax(0,1fr)_12rem_13rem]"
           >
             <div class="form-field flex-1">
               <label for="taskSearch" class="form-label">Search</label>
@@ -56,7 +56,7 @@
                 class="form-select-sky"
               >
                 <option value="all">All</option>
-                <option value="incomplete">Active / Incomplete</option>
+                <option value="incomplete">Incomplete</option>
                 <option value="complete">Complete</option>
               </select>
             </div>
@@ -81,7 +81,7 @@
 
           @if (getFilteredTasks(tasks).length === 0) {
             <div
-              class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center"
+              class="rounded-2xl border border-dashed border-stone-300/80 bg-stone-100/70 px-6 py-10 text-center"
             >
               <h3 class="text-lg font-semibold text-slate-900">
                 No matching tasks
@@ -94,10 +94,14 @@
             <div class="space-y-2.5">
               @for (task of getFilteredTasks(tasks); track $index) {
                 <article
-                  class="rounded-xl border border-slate-200 bg-slate-50/80 p-3.5 transition hover:border-slate-300"
+                  class="rounded-xl border border-stone-300/70 bg-stone-100/75 p-3.5 shadow-sm shadow-stone-900/5 transition hover:border-stone-300 hover:bg-stone-100/90"
                 >
                   @if (editingTaskId === task._id) {
-                    <form (ngSubmit)="saveEdit(task._id)" class="space-y-3">
+                    <form
+                      (ngSubmit)="saveEdit(task._id, editTaskForm)"
+                      #editTaskForm="ngForm"
+                      class="space-y-3"
+                    >
                       <div
                         class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
                       >
@@ -105,7 +109,7 @@
                           Editing Task
                         </h3>
                         <span
-                          class="inline-flex items-center rounded-full bg-sky-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-sky-700"
+                          class="inline-flex items-center rounded-full bg-teal-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-teal-700"
                         >
                           Edit mode
                         </span>
@@ -122,9 +126,13 @@
                           [attr.id]="'edit-name-' + task._id"
                           name="editName"
                           [(ngModel)]="editedTask.name"
+                          #editNameModel="ngModel"
                           required
                           class="form-input-sky"
                         />
+                        @if (editNameModel.invalid && editTaskForm.submitted) {
+                          <p class="form-error">Name is required.</p>
+                        }
                       </div>
 
                       <div class="form-field">
@@ -138,9 +146,15 @@
                           [attr.id]="'edit-due-' + task._id"
                           name="editDueDate"
                           [(ngModel)]="editedTask.due"
+                          #editDueDateModel="ngModel"
                           required
                           class="form-input-sky"
                         />
+                        @if (
+                          editDueDateModel.invalid && editTaskForm.submitted
+                        ) {
+                          <p class="form-error">Due date is required.</p>
+                        }
                       </div>
 
                       <div class="form-field">
@@ -153,10 +167,17 @@
                           [attr.id]="'edit-description-' + task._id"
                           name="editDescription"
                           [(ngModel)]="editedTask.description"
+                          #editDescriptionModel="ngModel"
                           required
                           rows="3"
                           class="form-textarea-sky"
                         ></textarea>
+                        @if (
+                          editDescriptionModel.invalid &&
+                          editTaskForm.submitted
+                        ) {
+                          <p class="form-error">Description is required.</p>
+                        }
                       </div>
 
                       <label
@@ -212,7 +233,7 @@
                         </p>
                       </div>
 
-                      <p class="text-sm pl-1.5 leading-6 text-slate-700">
+                      <p class="text-sm pl-1.5 leading-6 text-slate-700 break-words [overflow-wrap:anywhere] whitespace-pre-wrap">
                         {{ task.description }}
                       </p>
 
@@ -257,7 +278,7 @@
       class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 px-4"
     >
       <div
-        class="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl"
+        class="w-full max-w-md rounded-2xl border border-stone-300/70 bg-stone-50/95 p-6 shadow-xl shadow-stone-900/15"
       >
         <div class="space-y-3">
           <h3 class="text-lg font-semibold text-slate-900">Delete task?</h3>

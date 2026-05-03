@@ -1,8 +1,7 @@
-// No need to change this file
 import { Component } from '@angular/core';
 import { TaskService } from '../task.service';
 import { Task } from '../../task-types';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-task-create',
@@ -20,13 +19,24 @@ export class TaskCreateComponent {
 
   constructor(private taskService: TaskService) { }
 
-  protected onSubmit(): void {
-    this.taskService.createTask(this.task)
-    this.task = {
+  protected onSubmit(taskForm: NgForm): void {
+    if (taskForm.invalid) {
+      return
+    }
+
+    const taskToCreate: Task = {
+      ...this.task,
+    }
+
+    const resetTask: Task = {
       name: '',
       due: '',
       description: '',
       complete: false
     };
+
+    this.taskService.createTask(taskToCreate)
+    this.task = resetTask
+    taskForm.resetForm(resetTask)
   }
 }

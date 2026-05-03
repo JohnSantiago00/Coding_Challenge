@@ -1,5 +1,5 @@
 <section class="space-y-3">
-  <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="space-y-3">
+  <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm" class="space-y-3">
     <div class="form-field">
       <label for="name" class="form-label">Name</label>
       <input
