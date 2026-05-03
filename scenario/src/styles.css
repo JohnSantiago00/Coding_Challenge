@@ -3,12 +3,24 @@
 @tailwind utilities;
 
 @layer components {
-  .section-title {
-    @apply text-sm font-semibold uppercase tracking-wide text-slate-800;
+  .app-card {
+    @apply rounded-2xl border border-stone-300/60 bg-stone-50/90 shadow-lg shadow-stone-900/10;
   }
 
-  .section-helper {
-    @apply mt-1 text-xs text-slate-500;
+  .app-card-compact {
+    @apply app-card p-4 sm:p-5;
+  }
+
+  .auth-card {
+    @apply app-card p-6 sm:p-7;
+  }
+
+  .auth-title {
+    @apply text-2xl font-semibold tracking-tight text-slate-900;
+  }
+
+  .auth-helper {
+    @apply mt-2 text-sm text-slate-600;
   }
 
   .panel-title {
@@ -53,6 +65,10 @@
 
   .form-error {
     @apply pl-2 text-xs font-medium text-rose-600;
+  }
+
+  .password-toggle {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-500 transition hover:text-slate-700;
   }
 
   .checkbox-row {

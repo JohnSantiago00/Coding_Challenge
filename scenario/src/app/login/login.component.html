@@ -1,11 +1,9 @@
 <section class="mx-auto max-w-md">
-  <div
-    class="rounded-2xl border border-stone-300/60 bg-stone-50/90 p-6 shadow-lg shadow-stone-900/10 sm:p-7"
-  >
+  <div class="auth-card">
     <div class="text-center">
-      <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Log in</h2>
-      <p class="mt-2 text-sm text-slate-600">
-        Log in with your account to open the task dashboard.
+      <h2 class="auth-title">Log in</h2>
+      <p class="auth-helper">
+        Log in to open your to-do list.
       </p>
     </div>
 
@@ -30,17 +28,27 @@
 
       <div class="form-field">
         <label for="loginPassword" class="form-label">Password</label>
-        <input
-          id="loginPassword"
-          type="password"
-          autocomplete="current-password"
-          name="password"
-          [(ngModel)]="password"
-          #passwordModel="ngModel"
-          required
-          class="form-input"
-          placeholder="Enter your password"
-        />
+        <div class="relative">
+          <input
+            id="loginPassword"
+            [type]="showPassword ? 'text' : 'password'"
+            autocomplete="current-password"
+            name="password"
+            [(ngModel)]="password"
+            #passwordModel="ngModel"
+            required
+            class="form-input pr-16"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            class="password-toggle"
+          >
+            {{ showPassword ? 'Hide' : 'Show' }}
+          </button>
+        </div>
         @if (passwordModel.invalid && (passwordModel.touched || loginForm.submitted)) {
           <p class="form-error">Password is required.</p>
         }

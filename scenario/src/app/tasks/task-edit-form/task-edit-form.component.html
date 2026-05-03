@@ -4,7 +4,7 @@
   class="space-y-3"
 >
   <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-    <h3 class="text-base font-semibold text-slate-900">Editing Task</h3>
+    <h3 class="text-base font-semibold text-slate-900">Editing To-Do</h3>
     <span
       class="inline-flex items-center rounded-full bg-teal-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-teal-700"
     >
@@ -13,7 +13,7 @@
   </div>
 
   <div class="form-field">
-    <label class="form-label" [attr.for]="'edit-name-' + task._id">Name</label>
+    <label class="form-label" [attr.for]="'edit-name-' + task._id">To-Do Name</label>
     <input
       type="text"
       [attr.id]="'edit-name-' + task._id"
@@ -70,7 +70,7 @@
       [(ngModel)]="editedTask.complete"
       class="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-400"
     />
-    <span>Mark task as complete</span>
+    <span>Mark to-do as complete</span>
   </label>
 
   <div class="flex flex-wrap gap-2">

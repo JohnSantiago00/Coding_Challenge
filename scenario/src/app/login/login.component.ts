@@ -14,6 +14,7 @@ import { AuthService } from '../auth/auth.service';
 export class LoginComponent {
   protected email: string = '';
   protected password: string = '';
+  protected showPassword: boolean = false;
   protected authError$: Observable<string | null>;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -33,5 +34,9 @@ export class LoginComponent {
         this.router.navigate(['/tasks'])
       },
     })
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword
   }
 }

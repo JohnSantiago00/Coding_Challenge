@@ -15,6 +15,8 @@ export class SignupComponent {
   protected email: string = '';
   protected password: string = '';
   protected confirmPassword: string = '';
+  protected showPassword: boolean = false;
+  protected showConfirmPassword: boolean = false;
   protected authError$: Observable<string | null>;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -41,5 +43,13 @@ export class SignupComponent {
         this.router.navigate(['/tasks'])
       },
     })
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword
+  }
+
+  protected toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword
   }
 }

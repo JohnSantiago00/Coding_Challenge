@@ -4,7 +4,7 @@
       class="fixed left-1/2 top-4 z-50 w-full max-w-sm -translate-x-1/2 px-4"
     >
       <div
-        class="flex w-full items-start justify-between gap-3 rounded-2xl border border-stone-300/70 bg-stone-50/95 px-4 py-3 shadow-lg shadow-stone-900/10"
+        class="app-card flex w-full items-start justify-between gap-3 border-stone-300/70 bg-stone-50/95 px-4 py-3"
       >
         <p class="text-sm font-medium text-slate-800">{{ toastMessage }}</p>
         <button
@@ -19,45 +19,34 @@
   }
 
   <div class="mx-auto max-w-7xl">
-    <section
-      class="mb-5 rounded-2xl border border-stone-300/60 bg-stone-50/90 p-4 text-center shadow-lg shadow-stone-900/10 backdrop-blur-sm sm:p-5"
+    <header
+      class="app-card mb-5 flex flex-col gap-3 px-4 py-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:px-5"
     >
-      <div class="mx-auto flex max-w-3xl justify-center">
-        <div class="w-full space-y-2 text-center">
-          <div class="space-y-1.5">
-            <h1
-              class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl"
-            >
-              Task Manager
-            </h1>
-            <p class="mx-auto max-w-2xl text-sm text-slate-600 sm:text-base">
-              Stay organized and manage your tasks in one place
-            </p>
-            @if (currentUser$ | async; as currentUser) {
-              <div class="flex flex-wrap items-center justify-center gap-2 text-sm text-slate-600">
-                <span>Signed in as {{ currentUser.email }}</span>
-                <button
-                  type="button"
-                  (click)="logout()"
-                  class="font-semibold text-teal-700 transition hover:text-teal-600"
-                >
-                  Log out
-                </button>
-              </div>
-            } @else {
-              <div class="flex flex-wrap items-center justify-center gap-3 text-sm">
-                <a routerLink="/login" class="font-semibold text-teal-700 transition hover:text-teal-600">
-                  Log in
-                </a>
-                <a routerLink="/signup" class="font-semibold text-teal-700 transition hover:text-teal-600">
-                  Sign up
-                </a>
-              </div>
-            }
-          </div>
+      <a
+        routerLink="/"
+        class="inline-flex items-center text-lg font-semibold tracking-tight text-slate-900 transition hover:text-teal-700"
+      >
+        To-Do List
+      </a>
+
+      @if (currentUser$ | async; as currentUser) {
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <span
+            class="inline-flex items-center rounded-full border border-stone-300/70 bg-white/80 px-3 py-1 text-sm font-medium text-slate-600"
+          >
+            Signed in as {{ currentUser.email }}
+          </span>
+          <button type="button" (click)="logout()" class="secondary-button">
+            Log out
+          </button>
         </div>
-      </div>
-    </section>
+      } @else {
+        <div class="flex flex-wrap items-center gap-2">
+          <a routerLink="/login" class="secondary-button">Log in</a>
+          <a routerLink="/signup" class="primary-button">Sign up</a>
+        </div>
+      }
+    </header>
 
     <router-outlet></router-outlet>
   </div>
