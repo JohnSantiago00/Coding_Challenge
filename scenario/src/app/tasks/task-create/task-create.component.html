@@ -1,12 +1,12 @@
 <section class="space-y-3">
   <div>
-    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">Create</h2>
-    <p class="mt-1 text-xs text-slate-600">Add a task.</p>
+    <h2 class="section-title">Create</h2>
+    <p class="section-helper">Add a task.</p>
   </div>
 
   <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="space-y-3">
-    <div class="space-y-1.5">
-      <label for="name" class="text-sm font-medium text-slate-700">Name</label>
+    <div class="form-field">
+      <label for="name" class="form-label">Name</label>
       <input
         type="text"
         id="name"
@@ -14,15 +14,15 @@
         [(ngModel)]="task.name"
         #nameModel="ngModel"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
-      >
+        class="form-input"
+      />
       @if (nameModel.invalid && (nameModel.touched || taskForm.submitted)) {
-      <p class="text-xs font-medium text-red-600">Name is required.</p>
+        <p class="form-error">Name is required.</p>
       }
     </div>
 
-    <div class="space-y-1.5">
-      <label for="dueDate" class="text-sm font-medium text-slate-700">Due Date</label>
+    <div class="form-field">
+      <label for="dueDate" class="form-label">Due Date</label>
       <input
         type="date"
         id="dueDate"
@@ -30,15 +30,17 @@
         [(ngModel)]="task.due"
         #dueDateModel="ngModel"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
-      >
-      @if (dueDateModel.invalid && (dueDateModel.touched || taskForm.submitted)) {
-      <p class="text-xs font-medium text-red-600">Due date is required.</p>
+        class="form-input"
+      />
+      @if (
+        dueDateModel.invalid && (dueDateModel.touched || taskForm.submitted)
+      ) {
+        <p class="form-error">Due date is required.</p>
       }
     </div>
 
-    <div class="space-y-1.5">
-      <label for="description" class="text-sm font-medium text-slate-700">Description</label>
+    <div class="form-field">
+      <label for="description" class="form-label">Description</label>
       <input
         type="text"
         id="description"
@@ -46,28 +48,31 @@
         [(ngModel)]="task.description"
         #descriptionModel="ngModel"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100"
-      >
-      @if (descriptionModel.invalid && (descriptionModel.touched || taskForm.submitted)) {
-      <p class="text-xs font-medium text-red-600">Description is required.</p>
+        class="form-input"
+      />
+      @if (
+        descriptionModel.invalid &&
+        (descriptionModel.touched || taskForm.submitted)
+      ) {
+        <p class="form-error">Description is required.</p>
       }
     </div>
 
-    <label for="complete" class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700">
+    <label for="complete" class="checkbox-row">
       <input
         type="checkbox"
         id="complete"
         name="complete"
         [(ngModel)]="task.complete"
         class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-400"
-      >
+      />
       <span>Mark task as complete</span>
     </label>
 
     <button
       type="submit"
       [disabled]="!taskForm.form.valid"
-      class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:bg-slate-300"
+      class="primary-button"
     >
       Create
     </button>

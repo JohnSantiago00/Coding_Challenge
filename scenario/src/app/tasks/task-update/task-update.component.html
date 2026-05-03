@@ -1,59 +1,59 @@
 <section class="space-y-3">
   <div>
-    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">Update</h2>
-    <p class="mt-1 text-xs text-slate-600">Paste an id and edit values.</p>
+    <h2 class="section-title">Update</h2>
+    <p class="section-helper">Paste an id and edit values.</p>
   </div>
 
   <form (ngSubmit)="onSubmit()" class="space-y-3">
-    <div class="space-y-1.5">
-      <label for="taskId" class="text-sm font-medium text-slate-700">Task Id</label>
+    <div class="form-field">
+      <label for="taskId" class="form-label">Task Id</label>
       <input
         type="text"
         id="taskId"
         name="taskId"
         [(ngModel)]="taskId"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-mono text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+        class="form-input-sky form-input-mono"
       />
     </div>
 
-    <div class="space-y-1.5">
-      <label for="updateName" class="text-sm font-medium text-slate-700">Name</label>
+    <div class="form-field">
+      <label for="updateName" class="form-label">Name</label>
       <input
         type="text"
         id="updateName"
         name="name"
         [(ngModel)]="task.name"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+        class="form-input-sky"
       />
     </div>
 
-    <div class="space-y-1.5">
-      <label for="updateDueDate" class="text-sm font-medium text-slate-700">Due Date</label>
+    <div class="form-field">
+      <label for="updateDueDate" class="form-label">Due Date</label>
       <input
         type="date"
         id="updateDueDate"
         name="dueDate"
         [(ngModel)]="task.due"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+        class="form-input-sky"
       />
     </div>
 
-    <div class="space-y-1.5">
-      <label for="updateDescription" class="text-sm font-medium text-slate-700">Description</label>
+    <div class="form-field">
+      <label for="updateDescription" class="form-label">Description</label>
       <input
         type="text"
         id="updateDescription"
         name="description"
         [(ngModel)]="task.description"
         required
-        class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+        class="form-input-sky"
       />
     </div>
 
-    <label for="updateComplete" class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700">
+    <label for="updateComplete" class="checkbox-row">
       <input
         type="checkbox"
         id="updateComplete"
@@ -66,7 +66,7 @@
 
     <button
       type="submit"
-      class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500"
+      class="accent-button"
     >
       Update
     </button>

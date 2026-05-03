@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskDisplayComponent {
   protected tasks$: Observable<Array<TaskAndId>>;
-  protected loading$: Observable<boolean>;
   protected error$: Observable<string | null>;
   protected editingTaskId: string | null = null;
   protected taskPendingDelete: TaskAndId | null = null;
@@ -30,7 +29,6 @@ export class TaskDisplayComponent {
 
   constructor(private taskService: TaskService) {
     this.tasks$ = this.taskService.getTasks()
-    this.loading$ = this.taskService.loading$
     this.error$ = this.taskService.error$
   }
 

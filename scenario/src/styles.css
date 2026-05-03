@@ -1,3 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .section-title {
+    @apply text-sm font-semibold uppercase tracking-wide text-slate-900;
+  }
+
+  .section-title-danger {
+    @apply text-sm font-semibold uppercase tracking-wide text-red-700;
+  }
+
+  .section-helper {
+    @apply mt-1 text-xs text-slate-600;
+  }
+
+  .panel-title {
+    @apply text-base font-semibold tracking-tight text-slate-900;
+  }
+
+  .panel-helper {
+    @apply mt-1 text-sm text-slate-600;
+  }
+
+  .form-field {
+    @apply space-y-1.5;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-slate-700;
+  }
+
+  .form-input {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-100;
+  }
+
+  .form-input-sky {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100;
+  }
+
+  .form-input-danger {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-red-300 focus:ring-4 focus:ring-red-100;
+  }
+
+  .form-input-mono {
+    @apply font-mono;
+  }
+
+  .form-error {
+    @apply text-xs font-medium text-red-600;
+  }
+
+  .checkbox-row {
+    @apply flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:bg-slate-300;
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100;
+  }
+
+  .accent-button {
+    @apply inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500;
+  }
+
+  .danger-button {
+    @apply inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-500;
+  }
+}

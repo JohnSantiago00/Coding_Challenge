@@ -7,12 +7,6 @@
   </div>
 
   <div class="mt-4">
-    @if (loading$ | async) {
-    <div class="mb-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
-      Syncing tasks...
-    </div>
-    }
-
     @if (error$ | async; as errorMessage) {
     <div class="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
       {{ errorMessage }}
@@ -28,25 +22,25 @@
     } @else {
     <div class="space-y-4">
       <div class="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 sm:flex-row sm:items-center">
-        <div class="flex-1 space-y-1.5">
-          <label for="taskSearch" class="text-sm font-medium text-slate-700">Search</label>
+        <div class="form-field flex-1">
+          <label for="taskSearch" class="form-label">Search</label>
           <input
             type="text"
             id="taskSearch"
             name="taskSearch"
             [(ngModel)]="searchTerm"
             placeholder="Search by task name or description"
-            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+            class="form-input-sky"
           />
         </div>
 
-        <div class="space-y-1.5 sm:w-48">
-          <label for="statusFilter" class="text-sm font-medium text-slate-700">Status</label>
+        <div class="form-field sm:w-48">
+          <label for="statusFilter" class="form-label">Status</label>
           <select
             id="statusFilter"
             name="statusFilter"
             [(ngModel)]="statusFilter"
-            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+            class="form-input-sky"
           >
             <option value="all">All</option>
             <option value="incomplete">Active / Incomplete</option>
@@ -54,13 +48,13 @@
           </select>
         </div>
 
-        <div class="space-y-1.5 sm:w-48">
-          <label for="sortBy" class="text-sm font-medium text-slate-700">Sort</label>
+        <div class="form-field sm:w-48">
+          <label for="sortBy" class="form-label">Sort</label>
           <select
             id="sortBy"
             name="sortBy"
             [(ngModel)]="sortBy"
-            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+            class="form-input-sky"
           >
             <option value="newest">Newest first</option>
             <option value="oldest">Oldest first</option>
@@ -90,43 +84,43 @@
             </span>
           </div>
 
-          <div class="space-y-1.5">
-            <label class="text-sm font-medium text-slate-700" [attr.for]="'edit-name-' + task._id">Name</label>
+          <div class="form-field">
+            <label class="form-label" [attr.for]="'edit-name-' + task._id">Name</label>
             <input
               type="text"
               [attr.id]="'edit-name-' + task._id"
               name="editName"
               [(ngModel)]="editedTask.name"
               required
-              class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+              class="form-input-sky"
             />
           </div>
 
-          <div class="space-y-1.5">
-            <label class="text-sm font-medium text-slate-700" [attr.for]="'edit-due-' + task._id">Due Date</label>
+          <div class="form-field">
+            <label class="form-label" [attr.for]="'edit-due-' + task._id">Due Date</label>
             <input
               type="date"
               [attr.id]="'edit-due-' + task._id"
               name="editDueDate"
               [(ngModel)]="editedTask.due"
               required
-              class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+              class="form-input-sky"
             />
           </div>
 
-          <div class="space-y-1.5">
-            <label class="text-sm font-medium text-slate-700" [attr.for]="'edit-description-' + task._id">Description</label>
+          <div class="form-field">
+            <label class="form-label" [attr.for]="'edit-description-' + task._id">Description</label>
             <input
               type="text"
               [attr.id]="'edit-description-' + task._id"
               name="editDescription"
               [(ngModel)]="editedTask.description"
               required
-              class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm outline-none transition focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
+              class="form-input-sky"
             />
           </div>
 
-          <label class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700" [attr.for]="'edit-complete-' + task._id">
+          <label class="checkbox-row" [attr.for]="'edit-complete-' + task._id">
             <input
               type="checkbox"
               [attr.id]="'edit-complete-' + task._id"
@@ -140,14 +134,14 @@
           <div class="flex flex-wrap gap-2">
             <button
               type="submit"
-              class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500"
+              class="accent-button"
             >
               Save
             </button>
             <button
               type="button"
               (click)="cancelEdit()"
-              class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              class="secondary-button"
             >
               Cancel
             </button>
@@ -179,21 +173,21 @@
             <button
               type="button"
               (click)="toggleComplete(task)"
-              class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              class="secondary-button"
             >
               {{ task.complete ? 'Mark Incomplete' : 'Mark Complete' }}
             </button>
             <button
               type="button"
               (click)="startEdit(task)"
-              class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500"
+              class="accent-button"
             >
               Edit
             </button>
             <button
               type="button"
               (click)="openDeleteModal(task)"
-              class="inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-500"
+              class="danger-button"
             >
               Delete
             </button>
@@ -225,14 +219,14 @@
         <button
           type="button"
           (click)="closeDeleteModal()"
-          class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+          class="secondary-button"
         >
           Cancel
         </button>
         <button
           type="button"
           (click)="confirmDelete()"
-          class="inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-500"
+          class="danger-button"
         >
           Delete
         </button>

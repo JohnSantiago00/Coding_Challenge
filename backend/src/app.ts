@@ -1,17 +1,10 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { Task } from './task-types.js'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import TaskModel from './task-model.js'
 
 const app = express()
-const tasks: Array<Task> = [{
-  name: 'Default task',
-  due: new Date(Date.now() + 3600),
-  description: 'A default task from the backend',
-  complete: false
-}]
 const mongoURI = process.env.MONGODB_URI || 'mongodb://database:27017/tasks'
 mongoose
   .connect(mongoURI)
@@ -46,7 +39,6 @@ app.get('/api/tasks', async (req, res) => {
 
 app.post('/api/tasks', async (req, res) => {
   const { task } = req.body
-  console.log(task)
   await TaskModel.create(task)
   res.status(201).send()
   return
