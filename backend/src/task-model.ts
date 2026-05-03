@@ -5,7 +5,13 @@ const TaskSchema = new Schema<Task>({
   name: String,
   due: Date,
   description: String,
-  complete: Boolean
+  complete: Boolean,
+  ownerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+    index: true,
+  }
 })
 
 const TaskModel = model('task', TaskSchema)

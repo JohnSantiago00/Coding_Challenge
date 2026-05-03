@@ -1,14 +1,37 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink],
+  imports: [AsyncPipe, FormsModule, RouterLink],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  protected handleSubmit(event: SubmitEvent): void {
-    event.preventDefault()
+  protected email: string = '';
+  protected password: string = '';
+  protected authError$: Observable<string | null>;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.clearError()
+    this.authError$ = this.authService.authError$
+  }
+
+  protected onSubmit(loginForm: NgForm): void {
+    if (loginForm.invalid) {
+      return
+    }
+
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        this.email = ''
+        this.password = ''
+        this.router.navigate(['/tasks'])
+      },
+    })
   }
 }

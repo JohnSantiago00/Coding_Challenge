@@ -5,20 +5,27 @@
     <div class="text-center">
       <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Log in</h2>
       <p class="mt-2 text-sm text-slate-600">
-        Auth will be connected in the next phase. This is the login page shell.
+        Log in with your account to open the task dashboard.
       </p>
     </div>
 
-    <form (submit)="handleSubmit($event)" class="mt-6 space-y-4">
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" class="mt-6 space-y-4">
       <div class="form-field">
         <label for="loginEmail" class="form-label">Email</label>
         <input
           id="loginEmail"
           type="email"
           autocomplete="email"
+          name="email"
+          [(ngModel)]="email"
+          #emailModel="ngModel"
+          required
           class="form-input"
           placeholder="you@example.com"
         />
+        @if (emailModel.invalid && (emailModel.touched || loginForm.submitted)) {
+          <p class="form-error">Email is required.</p>
+        }
       </div>
 
       <div class="form-field">
@@ -27,12 +34,23 @@
           id="loginPassword"
           type="password"
           autocomplete="current-password"
+          name="password"
+          [(ngModel)]="password"
+          #passwordModel="ngModel"
+          required
           class="form-input"
           placeholder="Enter your password"
         />
+        @if (passwordModel.invalid && (passwordModel.touched || loginForm.submitted)) {
+          <p class="form-error">Password is required.</p>
+        }
       </div>
 
-      <button type="submit" class="primary-button w-full">Log in</button>
+      @if (authError$ | async; as errorMessage) {
+        <p class="form-error">{{ errorMessage }}</p>
+      }
+
+      <button type="submit" [disabled]="!loginForm.form.valid" class="primary-button w-full">Log in</button>
     </form>
 
     <p class="mt-5 text-center text-sm text-slate-600">

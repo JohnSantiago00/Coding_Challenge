@@ -3,8 +3,10 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
+import session from 'express-session'
 import TaskModel from './task-model.js'
 import UserModel from './user-model.js'
+import { requireAuth } from './auth-middleware.js'
 
 const app = express()
 const mongoURI = process.env.MONGODB_URI || 'mongodb://database:27017/tasks'
@@ -20,6 +22,18 @@ app.use(
     origin: ['http://localhost:4200'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Set-Cookie'],
     credentials: true,
+  }),
+)
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'local-dev-session-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+    },
   }),
 )
 
@@ -68,6 +82,7 @@ app.post('/api/auth/signup', async (req, res) => {
       email: normalizedEmail,
       passwordHash,
     })
+    req.session.userId = user._id.toString()
 
     res.status(201).json({ user: toSafeUser(user) })
     return
@@ -113,6 +128,7 @@ app.post('/api/auth/login', async (req, res) => {
       res.status(401).json({ error: 'Invalid email or password.' })
       return
     }
+    req.session.userId = user._id.toString()
 
     res.status(200).json({ user: toSafeUser(user) })
     return
@@ -123,35 +139,99 @@ app.post('/api/auth/login', async (req, res) => {
   }
 })
 
-app.post('/api/auth/logout', async (_req, res) => {
-  res.status(204).send()
-  return
+app.post('/api/auth/logout', async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err)
+      res.status(500).json({ error: 'Failed to log out.' })
+      return
+    }
+
+    res.clearCookie('connect.sid')
+    res.status(204).send()
+  })
 })
 
-app.get('/api/auth/me', async (_req, res) => {
-  res.status(401).json({ error: 'Not authenticated.' })
-  return
-})
+app.get('/api/auth/me', async (req, res) => {
+  const userId = req.session.userId
 
-app.get('/api/tasks', async (req, res) => {
-  const tasks = await TaskModel.find()
-  res.json(tasks)
-  return
-})
-
-app.post('/api/tasks', async (req, res) => {
-  const { task } = req.body
-  await TaskModel.create(task)
-  res.status(201).send()
-  return
-})
-
-app.put('/api/tasks/:id', async (req, res) => {
-  const { id } = req.params
-  const { task } = req.body
+  if (!userId) {
+    res.status(401).json({ error: 'Not authenticated.' })
+    return
+  }
 
   try {
-    const updatedTask = await TaskModel.findByIdAndUpdate(id, task, { new: true })
+    const user = await UserModel.findById(userId)
+
+    if (!user) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+      res.clearCookie('connect.sid')
+      res.status(401).json({ error: 'Not authenticated.' })
+      return
+    }
+
+    res.status(200).json({ user: toSafeUser(user) })
+    return
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: 'Failed to load current user.' })
+    return
+  }
+})
+
+app.get('/api/tasks', requireAuth, async (req, res) => {
+  try {
+    const tasks = await TaskModel.find({ ownerId: req.session.userId })
+    res.json(tasks)
+    return
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: 'Failed to load tasks' })
+    return
+  }
+})
+
+app.post('/api/tasks', requireAuth, async (req, res) => {
+  const { task } = req.body
+  const taskToCreate = {
+    name: task?.name,
+    due: task?.due,
+    description: task?.description,
+    complete: task?.complete,
+    ownerId: req.session.userId,
+  }
+
+  try {
+    await TaskModel.create(taskToCreate)
+    res.status(201).send()
+    return
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: 'Failed to create task' })
+    return
+  }
+})
+
+app.put('/api/tasks/:id', requireAuth, async (req, res) => {
+  const { id } = req.params
+  const { task } = req.body
+  const taskToUpdate = {
+    name: task?.name,
+    due: task?.due,
+    description: task?.description,
+    complete: task?.complete,
+  }
+
+  try {
+    const updatedTask = await TaskModel.findOneAndUpdate(
+      { _id: id, ownerId: req.session.userId },
+      taskToUpdate,
+      { new: true }
+    )
 
     if (!updatedTask) {
       res.status(404).json({ error: 'Task not found' })
@@ -167,15 +247,24 @@ app.put('/api/tasks/:id', async (req, res) => {
   }
 })
 
-app.delete('/api/tasks/:id', async (req, res) => {
+app.delete('/api/tasks/:id', requireAuth, async (req, res) => {
   const { id } = req.params
   try {
-    await TaskModel.findByIdAndDelete(id)
+    const deletedTask = await TaskModel.findOneAndDelete({
+      _id: id,
+      ownerId: req.session.userId,
+    })
+
+    if (!deletedTask) {
+      res.status(404).json({ error: 'Task not found' })
+      return
+    }
+
     res.status(204).send()
     return
   } catch (e) {
     console.log(e)
-    res.status(404).send()
+    res.status(500).json({ error: 'Failed to delete task' })
     return
   }
 })

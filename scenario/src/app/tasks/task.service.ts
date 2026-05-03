@@ -54,7 +54,7 @@ export class TaskService {
       this.errorSubject.next(null)
     }
 
-    this.http.get<Array<TaskAndId>>(this.apiUrl).subscribe({
+    this.http.get<Array<TaskAndId>>(this.apiUrl, { withCredentials: true }).subscribe({
       next: (tasks) => {
         this.tasksSubject.next(tasks)
         if (successMessage) {
@@ -70,7 +70,7 @@ export class TaskService {
   updateTask(id: string, task: Task): void {
     this.errorSubject.next(null)
 
-    this.http.put(`${this.apiUrl}/${id}`, { task }).subscribe({
+    this.http.put(`${this.apiUrl}/${id}`, { task }, { withCredentials: true }).subscribe({
       next: () => {
         this.fetchTasks(false, 'Task updated.')
       },
@@ -83,7 +83,7 @@ export class TaskService {
   createTask(newTask: Task): void {
     this.errorSubject.next(null)
 
-    this.http.post(this.apiUrl, { task: newTask }).subscribe({
+    this.http.post(this.apiUrl, { task: newTask }, { withCredentials: true }).subscribe({
       next: () => {
         this.fetchTasks(false, 'Task created.')
       },
@@ -96,7 +96,7 @@ export class TaskService {
   deleteTask(index: string): void {
     this.errorSubject.next(null)
 
-    this.http.delete(`${this.apiUrl}/${index}`).subscribe({
+    this.http.delete(`${this.apiUrl}/${index}`, { withCredentials: true }).subscribe({
       next: () => {
         this.fetchTasks(false, 'Task deleted.')
       },

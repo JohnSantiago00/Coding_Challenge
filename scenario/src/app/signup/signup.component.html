@@ -5,20 +5,27 @@
     <div class="text-center">
       <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Sign up</h2>
       <p class="mt-2 text-sm text-slate-600">
-        Auth will be connected in the next phase. This is the signup page shell.
+        Create your account to start saving your own tasks.
       </p>
     </div>
 
-    <form (submit)="handleSubmit($event)" class="mt-6 space-y-4">
+    <form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" class="mt-6 space-y-4">
       <div class="form-field">
         <label for="signupEmail" class="form-label">Email</label>
         <input
           id="signupEmail"
           type="email"
           autocomplete="email"
+          name="email"
+          [(ngModel)]="email"
+          #emailModel="ngModel"
+          required
           class="form-input"
           placeholder="you@example.com"
         />
+        @if (emailModel.invalid && (emailModel.touched || signupForm.submitted)) {
+          <p class="form-error">Email is required.</p>
+        }
       </div>
 
       <div class="form-field">
@@ -27,9 +34,17 @@
           id="signupPassword"
           type="password"
           autocomplete="new-password"
+          name="password"
+          [(ngModel)]="password"
+          #passwordModel="ngModel"
+          required
+          minlength="6"
           class="form-input"
           placeholder="Create a password"
         />
+        @if (passwordModel.invalid && (passwordModel.touched || signupForm.submitted)) {
+          <p class="form-error">Password must be at least 6 characters.</p>
+        }
       </div>
 
       <div class="form-field">
@@ -38,12 +53,32 @@
           id="signupConfirmPassword"
           type="password"
           autocomplete="new-password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          #confirmPasswordModel="ngModel"
+          required
           class="form-input"
           placeholder="Repeat your password"
         />
+        @if (confirmPasswordModel.invalid && (confirmPasswordModel.touched || signupForm.submitted)) {
+          <p class="form-error">Please confirm your password.</p>
+        }
+        @if (passwordsDoNotMatch() && (confirmPasswordModel.touched || signupForm.submitted)) {
+          <p class="form-error">Passwords must match.</p>
+        }
       </div>
 
-      <button type="submit" class="primary-button w-full">Create account</button>
+      @if (authError$ | async; as errorMessage) {
+        <p class="form-error">{{ errorMessage }}</p>
+      }
+
+      <button
+        type="submit"
+        [disabled]="!signupForm.form.valid || passwordsDoNotMatch()"
+        class="primary-button w-full"
+      >
+        Create account
+      </button>
     </form>
 
     <p class="mt-5 text-center text-sm text-slate-600">
