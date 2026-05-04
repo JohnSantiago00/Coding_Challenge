@@ -74,33 +74,17 @@ export class TaskDisplayComponent {
     this.closeDeleteModal()
   }
 
-  protected toDateInputValue(due: string | Date): string {
-    if (typeof due === 'string') {
-      const normalizedDue = due.trim()
+  protected toDateInputValue(due: string): string {
+    const normalizedDue = due.trim()
 
-      if (/^\d{4}-\d{2}-\d{2}$/.test(normalizedDue)) {
-        return normalizedDue
-      }
-
-      if (/^\d{4}-\d{2}-\d{2}T/.test(normalizedDue)) {
-        return normalizedDue.slice(0, 10)
-      }
-    }
-
-    const localDate = due instanceof Date ? due : new Date(due)
-
-    if (Number.isNaN(localDate.getTime())) {
+    if (!normalizedDue) {
       return ''
     }
 
-    const year = localDate.getFullYear()
-    const month = String(localDate.getMonth() + 1).padStart(2, '0')
-    const day = String(localDate.getDate()).padStart(2, '0')
-
-    return `${year}-${month}-${day}`
+    return normalizedDue.slice(0, 10)
   }
 
-  protected formatDueDate(due: string | Date): string {
+  protected formatDueDate(due: string): string {
     const normalizedDue = this.toDateInputValue(due)
 
     if (!normalizedDue) {
@@ -166,7 +150,7 @@ export class TaskDisplayComponent {
     return sortedTasks
   }
 
-  private getDueTime(due: string | Date): number {
+  private getDueTime(due: string): number {
     const normalizedDue = this.toDateInputValue(due)
 
     if (!normalizedDue) {
